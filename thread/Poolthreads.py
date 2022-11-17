@@ -1,11 +1,13 @@
 import time
 import concurrent.futures
+import requests
 
 
 
 img_urls = [
     'https://images.unsplash.com/photo-1517436073-7d3a1e2e9d0c?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=3a6a6f2c2c3c4d5e6f7f8g9h0i1j2k3l&auto=format&fit=crop&w=1350&q=80',
     'https://images.unsplash.com/photo-1517436073-7d3a1e2e9d0c?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=3a6a6f2c2c3c4d5e6f7f8g9h0i1j2k3l&auto=format&fit=crop&w=1350&q=80',
+    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSkljCI_W2d7sKKlzmKIebYnJEY77ukpZD0TlZ0YgdHP57OfdL_0DqNfuobGoVb0akzcUY&usqp=CAU'
 ]
 
 def download_image(img_url):

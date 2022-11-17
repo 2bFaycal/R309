@@ -5,14 +5,17 @@ import multiprocessing
 import concurrent.futures
 import requests
 
+
 img_urls = [
-    'https://www.looper.com/img/gallery/this-huge-actor-is-reportedly-in-talks-to-return-as-spider-man/intro-1583531066.jpg',
-    'https://images.prismic.io/mystique/5d7c09b9-40e5-4254-ae1c-2c1cb59aa898_IMG3.jpg'
+    'https://i.pinimg.com/474x/d9/48/d9/d948d9aec4b82b0df940b953da2fc0f5.jpg',
+    'https://i.pinimg.com/474x/13/37/ed/1337ed4377c6b79e997046823bf57533.jpg',
+    'https://i.pinimg.com/474x/fb/08/94/fb0894bd74afe91b0c787684679c01dd.jpg'
 ]
 
 def download_image(img_url):
     img_bytes = requests.get(img_url).content
-    img_name = img_url.split('/')[4]
+    img_name = img_url.split('/')[5]
+    img_name = f'{img_name}.jpg'
     with open(img_name, 'wb') as img_file:
         img_file.write(img_bytes)
         print(f'{img_name} was downloaded..')
@@ -41,3 +44,5 @@ if __name__ == '__main__':
     p2.join()
     end = time.perf_counter()
     print (f"FINITO dans {round(end-start, 2)} second(s)")
+
+
