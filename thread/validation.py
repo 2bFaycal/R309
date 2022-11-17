@@ -21,28 +21,47 @@ def download_image(img_url):
         print(f'{img_name} was downloaded..')
 
 
-start = time.perf_counter()
+def task_threading():
+    t1 = threading.Thread(target=download_image, args=(img_urls[0],))
+    t2 = threading.Thread(target=download_image, args=(img_urls[1],))
+    t3 = threading.Thread(target=download_image, args=(img_urls[2],))
+    t1.start()
+    t2.start()
+    t3.start()
+    t1.join()
+    t2.join()
+    t3.join()
+def task_multiprocessing ():
+    p1 = multiprocessing.Process(target=download_image, args=(img_urls[0],))
+    p2 = multiprocessing.Process(target=download_image, args=(img_urls[1],))
+    p3 = multiprocessing.Process(target=download_image, args=(img_urls[2],))
+    p1.start()
+    p2.start()
+    p3.start()
+    p1.join()
+    p2.join()
+    p3.join()
 
-with concurrent.futures.ThreadPoolExecutor() as executor:
-    executor.map(download_image, img_urls)
 
-finish = time.perf_counter()
-print (f'Finished in {round(finish-start, 2)} second(s)')
+def task_pool():
+    with concurrent.futures.ProcessPoolExecutor() as executor:
+        executor.map(download_image, img_urls)
 
-def task ():
-    print (f"start for 1 sec")
-    time.sleep(1)
-    print (f"FINITO")
 
 if __name__ == '__main__':
     start = time.perf_counter()
-    p1 = multiprocessing.Process(target=task)
-    p2 = multiprocessing.Process(target=task)
-    p1.start()
-    p2.start()
-    p1.join()
-    p2.join()
-    end = time.perf_counter()
-    print (f"FINITO dans {round(end-start, 2)} second(s)")
+    task_threading()
+    finish = time.perf_counter()
+    print(f'THREADING in {round(finish-start, 3)} second(s)')
+
+    start = time.perf_counter()
+    task_multiprocessing()
+    finish = time.perf_counter()
+    print (f"MULTIPROCCESING dans {round(finish-start, 3)} second(s)")
+
+    start = time.perf_counter()
+    task_pool()
+    finish = time.perf_counter()
+    print(f'POOL in {round(finish-start, 3)} second(s)')
 
 
